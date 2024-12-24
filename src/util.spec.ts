@@ -15,10 +15,15 @@ describe("parseRef", () => {
 
 describe("extractMajorTag", () => {
   test.each([
+    ["1.2.3", "1"],
     ["v1.2.3", "v1"],
-    ["v1.0.0", "v1"],
-    ["v2.0.0", "v2"],
-    ["v10.0.0", "v10"],
+    ["1.2.3-beta", "1-beta"],
+    ["1.2.3-rc.1", "1-rc.1"],
+    ["1.2.3-rc.1.2", "1-rc.1.2"],
+    ["v1.2.3-beta", "v1-beta"],
+    ["v1.2.3-rc.1", "v1-rc.1"],
+    ["v1.2.3-rc.1.2", "v1-rc.1.2"],
+    ["v1.2.3-rc.1.2.3", "v1-rc.1.2.3"],
   ])("extractMajorTag(%s) should return %s", (tag, expected) => {
     const result = extractMajorTag(tag);
     expect(result).toBe(expected);
