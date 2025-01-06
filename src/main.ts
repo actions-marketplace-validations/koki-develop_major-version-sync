@@ -6,6 +6,7 @@ import { extractMajorTag, parseRef } from "./util";
 export const main = async () => {
   try {
     const inputs = {
+      version: core.getInput("version"),
       token: core.getInput("token"),
     } as const;
 
@@ -15,11 +16,15 @@ export const main = async () => {
       token: inputs.token,
     });
 
-    const ref = parseRef(context.ref);
-    if (ref.type !== "tags") {
-      throw new Error("not a tag event");
-    }
-    const majorTag = extractMajorTag(ref.name);
+    const version = (() => {
+      if (inputs.version) return inputs.version;
+      const ref = parseRef(context.ref);
+      if (ref.type !== "tags") {
+        throw new Error("not a tag event");
+      }
+      return ref.name;
+    })();
+    const majorTag = extractMajorTag(version);
     core.setOutput("tag", majorTag);
 
     const exists = await github.isTagExists(majorTag);

@@ -6,6 +6,9 @@ branding:
   color: gray-dark
 
 inputs:
+  version:
+    description: The version to sync. If not provided, it will be retrieved from the push event context.
+    required: false
   token:
     description: |-
       The GitHub token to use for pushing the tag.
