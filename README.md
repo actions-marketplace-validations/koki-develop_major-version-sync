@@ -26,6 +26,15 @@ jobs:
           token: ${{ github.token }}
 ```
 
+Alternatively, you can manually specify the version to sync using the `version` input.
+
+```yaml
+- uses: koki-develop/major-version-sync@v1
+  with:
+    version: v1.2.3
+    token: ${{ github.token }}
+```
+
 ## LICENSE
 
 [MIT](./LICENSE)
